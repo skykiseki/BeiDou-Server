@@ -1,5 +1,4 @@
 var OutstandingCitizenMedal = Java.type('org.gms.server.quest.medal.OutstandingCitizenMedal');
-var questId = OutstandingCitizenMedal.QUEST_ID;
 var medalId = OutstandingCitizenMedal.MEDAL_ID;
 
 function getMissingRequirements() {
@@ -21,12 +20,6 @@ function getMissingRequirements() {
 }
 
 function start(mode, type, selection) {
-    if (qm.getQuestStatus(questId) == 2) {
-        qm.sendOk("你已经获得过最佳公民勋章。");
-        qm.dispose();
-        return;
-    }
-
     qm.forceStartQuest();
     OutstandingCitizenMedal.refreshEligibility(qm.getPlayer());
 
@@ -40,13 +33,6 @@ function start(mode, type, selection) {
 }
 
 function end(mode, type, selection) {
-    if (qm.getQuestStatus(questId) == 2) {
-        OutstandingCitizenMedal.clearEligibility(qm.getPlayer());
-        qm.sendOk("你已经获得过最佳公民勋章。");
-        qm.dispose();
-        return;
-    }
-
     OutstandingCitizenMedal.refreshEligibility(qm.getPlayer());
 
     var missing = getMissingRequirements();

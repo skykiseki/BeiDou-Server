@@ -457,7 +457,6 @@ public class FamilyEntry {
         for (int i = 0; i < juniors.length; i++) {
             if (juniors[i] == junior) {
                 juniors[i] = null;
-                addJuniorCount(-1);
                 Character chr = getChr();
                 if (chr != null) {
                     org.gms.server.quest.medal.OutstandingCitizenMedal.refreshEligibility(chr);

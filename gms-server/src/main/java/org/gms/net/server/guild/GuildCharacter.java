@@ -22,11 +22,8 @@
 package org.gms.net.server.guild;
 
 import org.gms.client.Character;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class GuildCharacter {
-    private static final Logger log = LoggerFactory.getLogger(GuildCharacter.class);
     private Character character;
     private int level;
     private final int id;
@@ -114,13 +111,10 @@ public class GuildCharacter {
 
     public void setGuildId(int gid) {
         guildid = gid;
-        if (character == null) {
-            log.debug("Updated offline guild character {} guild id to {}", id, gid);
-            return;
+        if (character != null) {
+            character.setGuildId(gid);
+            org.gms.server.quest.medal.OutstandingCitizenMedal.refreshEligibility(character);
         }
-
-        character.setGuildId(gid);
-        org.gms.server.quest.medal.OutstandingCitizenMedal.refreshEligibility(character);
     }
 
     public int getGuildRank() {
